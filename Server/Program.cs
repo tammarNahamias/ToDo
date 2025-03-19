@@ -20,11 +20,13 @@ builder.Services.AddDbContext<ToDoDbContext>(options =>
 var app = builder.Build();
 
 app.UseCors("AllowAll");
-if (app.Environment.IsDevelopment())
-{
+// if (app.Environment.IsDevelopment())
+// {
     app.UseSwagger();
     app.UseSwaggerUI();
-}
+// }
+app.MapGet("",()=>"Hello World!");
+
 app.MapGet("/getall", async (ToDoDbContext conts) => await conts.Items.ToListAsync());
 
 app.MapPost("/add/{name}", async (ToDoDbContext conts ,string name) =>
@@ -67,6 +69,9 @@ app.MapPut("/update/{id}", async (ToDoDbContext conts, int id) =>
     // החזר תשובה מתאימה
     return Results.NoContent(); // אם הצלחנו לעדכן, החזר NoContent
 });
-
+app.UseHttpsRedirection();
+app.MapControllers();
+app.UseAuthentication();
+app.UseAuthorization();
 // הרצת האפליקציה
 app.Run();
