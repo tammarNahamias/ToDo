@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const apiUrl = "http://localhost:5021";
+const apiUrl = "https://server-mf4t.onrender.com/";
 
 export default {
   getTasks: async () => {
